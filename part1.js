@@ -49,3 +49,13 @@ console.log(list2.reduce(sum, 1));
 console.log(list1.reduce(multiply));
 // --------------------------------------------------------------------------------------------------------------------
 // sort: ordena a coleção conforme a função de comparação informada como parâmetro
+function comparationWithLength(s1, s2) {
+    return s1.length - s2.length;
+}
+console.log('SORT ------------------------------');
+var s1 = nomes.sort(comparationWithLength);
+console.log(s1);
+var s2 = nomes.sort();
+console.log(s2);
+var s3 = nomes.sort(function (x, y) { return x.length - y.length; });
+console.log(s3);

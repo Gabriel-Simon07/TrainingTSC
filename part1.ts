@@ -67,7 +67,17 @@ console.log(list1.reduce(multiply));
 // --------------------------------------------------------------------------------------------------------------------
 // sort: ordena a coleção conforme a função de comparação informada como parâmetro
 
+function comparationWithLength(s1 : string, s2 : string) : number {
+  return s1.length - s2.length;
+}
 
+console.log('SORT ------------------------------');
+let s1 = nomes.sort(comparationWithLength);
+console.log(s1);
+let s2 = nomes.sort();
+console.log(s2);
+let s3 = nomes.sort((x, y) => x.length - y.length);
+console.log(s3);
 
 
 
