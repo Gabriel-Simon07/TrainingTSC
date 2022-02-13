@@ -75,7 +75,57 @@ const buildBarSeries = (games: Game[], records:RecordItem[]) => {
     });
 
     const sortedGames = mappedGames.sort((a, b) => b.y - a.y)
-    return mappedGames.splice(0, 8);
+
+    return sortedGames.splice(0, 8);
 }
 
+const getPlatformChartData = (records:RecordItem[]) => {
+
+    const platforms = ['PC', 'PLAYSTATION', 'XBOX'];
+
+    const series = platforms.map(platform => {
+        const filteredGames = records.filter(record => {
+            return record.gamePlatform === platform;
+        });
+
+        return filteredGames.length;
+    });
+
+    return {
+        labels: platforms,
+        series: series
+    }
+}
+
+const getGenreChartData = (records : RecordItem[]) => {
+
+    const computeRecordItem = (dictionary, recordItem : RecordItem) => {
+        if (dictionary[recordItem.genreName] !== undefined) {
+            dictionary[recordItem.genreName] += 1;
+        }
+        else {
+            dictionary[recordItem.genreName] = 1;
+        }
+
+        return dictionary;
+    }
+
+    const genreByAmount = records.reduce(computeRecordItem, {} as Record<string, number>);
+
+    const labels = Object.keys(genreByAmount);
+    const series = labels.map(x => genreByAmount[x]);
+
+    return {
+        labels,
+        series
+    }
+}
+
+console.log('GRÁFICO DE BARRAS ----------------------------');
 console.log(buildBarSeries(gameList, recordItemList));
+
+console.log('GRÁFICO DE ROSCA (PLATAFORMAS) --------------------------');
+console.log(getPlatformChartData(recordItemList));
+
+console.log('GRÁFICO DE ROSCA (GÊNEROS) --------------------------');
+console.log(getGenreChartData(recordItemList));
